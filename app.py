@@ -3,7 +3,8 @@ from discord.ext import commands
 from magichome import MagicHomeApi
 import datetime
 
-
+hostname = "" #Ip of the LEDS
+token = "" #Token of the discord bot
 
 client = commands.Bot(command_prefix=">")
 
@@ -24,13 +25,13 @@ async def status(ctx):
     
 @client.command()
 async def LED(ctx, arg, arg1, arg2):
-    controller = MagicHomeApi('192.168.1.112', 0)
+    controller = MagicHomeApi(hostname, 0)
     print(round(int(arg)), round(int(arg1)), round(int(arg2)))
     if(check(round(int(arg))) and check(round(int(arg1))) and check(round(int(arg2)))):
         controller.update_device(round(int(arg)), round(int(arg1)), round(int(arg2)))
         await ctx.send('Lights set!')
     else:
-         await ctx.send('Errrr they aint rgb values? ')
+         await ctx.send('They are not rgb values?')
   
 
 
